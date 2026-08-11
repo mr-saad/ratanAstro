@@ -1,0 +1,45 @@
+---
+import cn from "@/utils/cn"
+
+const links = [
+  {
+    text: "Products",
+    url: "/products",
+  },
+  {
+    text: "About",
+    url: "/about",
+  },
+  {
+    text: "Contact",
+    url: "/contact",
+  },
+]
+---
+
+<li class="md:inline">
+  <a
+    class={cn(
+      "block pb-2 transition hover:text-rose-700 focus-visible:text-rose-700 md:inline md:px-2 md:py-0",
+    )}
+    href={"/"}
+  >
+    Home
+  </a>
+</li>
+{
+  links.map((all) => {
+    return (
+      <li class="md:inline">
+        <a
+          class={cn(
+            "block py-2 transition hover:text-rose-700 focus-visible:text-rose-700 md:inline md:px-2 md:py-0",
+          )}
+          href={all.url}
+        >
+          {all.text}
+        </a>
+      </li>
+    )
+  })
+}

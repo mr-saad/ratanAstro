@@ -1,0 +1,25 @@
+---
+import Product from "@/components/Product.astro"
+import Container from "@/components/ui/Container.astro"
+import ProductGrid from "@/components/ui/ProductGrid.astro"
+import Layout from "@/layouts/Layout.astro"
+import sanity from "@/utils/sanity"
+
+const products = await sanity.fetch(`
+    *[_type=="product"]|order(_createdAt desc){
+    _id,type,title,"slug":slug.current,"image":images[0].asset->url
+    }
+  `)
+---
+
+<Layout title="Products">
+  <Container isTop>
+    <ProductGrid>
+      {
+        products.map((p) => {
+          return <Product {...p} />
+        })
+      }
+    </ProductGrid>
+  </Container>
+</Layout>

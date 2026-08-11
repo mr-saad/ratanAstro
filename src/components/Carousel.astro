@@ -1,0 +1,41 @@
+---
+import sanity from "@/utils/sanity"
+import Button from "./ui/Button.astro"
+
+const crafts =
+  await sanity.fetch(`*[_type=="product"][0...5]|order(_createdAt desc){
+  _id,
+  type,
+  title,
+  "slug":slug.current,
+  description,
+  "image":images[0].asset->{url,"lqip":metadata.lqip}
+  }`)
+---
+
+<div class="flex snap-x snap-mandatory gap-5 overflow-x-auto">
+  {
+    crafts.map((c: any) => {
+      return (
+        <div class="flex w-full shrink-0 snap-start flex-col items-center justify-between gap-3 md:flex-row">
+          <div class="flex max-w-xl grow flex-col gap-2">
+            <h3 class="font-serif text-xl text-black md:text-2xl">{c.title}</h3>
+            <p>{c.description}</p>
+            <Button
+              href={"/products/" + c.type + "/" + c.slug}
+              class="mt-auto self-start"
+            >
+              View More
+            </Button>
+          </div>
+          <img
+            class="aspect-square rounded-md object-cover"
+            src={c.image.url + "?w=400&auto=format"}
+            width="400"
+            height="400"
+          />
+        </div>
+      )
+    })
+  }
+</div>

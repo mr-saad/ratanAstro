@@ -1,0 +1,53 @@
+---
+import { cn } from "@/lib/utils"
+import type { HTMLAttributes } from "astro/types"
+import { cva } from "class-variance-authority"
+
+type Props =
+  | (HTMLAttributes<"button"> & {
+      href?: string
+      class?: string
+      variant?: "default" | "destructive" | "secondary" | "link"
+    })
+  | (HTMLAttributes<"a"> & {
+      href?: string
+      class?: string
+      variant?: "default" | "destructive" | "secondary" | "link"
+    })
+
+export const buttonVariants = cva(
+  "inline-flex px-3 py-1.5 cursor-pointer rounded-md outline-none focus-visible:ring-2 ring-primary/20 transition-all",
+  {
+    variants: {
+      variant: {
+        default:
+          "text-white bg-primary hover:bg-primary/80 focus-visible:bg-primary/80",
+        secondary:
+          "text-black bg-secondary hover:bg-secondary/80 focus-visible:bg-secondary/80",
+        destructive:
+          "text-red-600 bg-red-600/60 hover:bg-red-600/70 focus-visible:bg-red-600/70",
+        link: "text-white bg-primary hover:bg-primary/80 focus-visible:bg-primary/80",
+      },
+    },
+    defaultVariants: { variant: "default" },
+  },
+)
+
+const { href, class: className, variant, ...props } = Astro.props
+---
+
+{
+  href ? (
+    <a
+      {...props}
+      href={href}
+      class={cn(buttonVariants({ variant, className }))}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button {...props} class={cn(buttonVariants({ variant, className }))}>
+      <slot />
+    </button>
+  )
+}

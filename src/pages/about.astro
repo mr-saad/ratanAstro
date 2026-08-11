@@ -1,0 +1,112 @@
+---
+import Button from "@/components/ui/Button.astro"
+import Container from "@/components/ui/Container.astro"
+import ProductGrid from "@/components/ui/ProductGrid.astro"
+import Layout from "@/layouts/Layout.astro"
+---
+
+<Layout title="About">
+  <Container isTop>
+    {/* 1. Hero Section - Centered & Minimal */}
+    <section
+      class="mb-5 flex flex-col justify-between gap-2 md:flex-row md:items-center"
+    >
+      <div class="shrink-0">
+        <span class="text-sm font-medium tracking-widest uppercase">
+          Est. 2019 • Bhuj, Gujarat
+        </span>
+        <h1 class="leading-tighter font-serif text-4xl">
+          Weaving stories, <br />
+          <span class="highlight italic">one knot at a time.</span>
+        </h1>
+      </div>
+      <p class="max-w-xl self-end text-right md:text-xl">
+        We are a collective of artisans dedicated to preserving the ancient art
+        of Bandhani. Every piece tells a story of patience, precision and the
+        vibrant culture of Kachchh.
+      </p>
+    </section>
+
+    {/* 2. Visual Grid - Using CSS Grid instead of absolute positioning */}
+    <section class="mb-24">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
+        {/* Large Main Image */}
+        <div class="overflow-hidden rounded-2xl bg-stone-200 md:col-span-8">
+          <img
+            decoding="async"
+            loading="eager"
+            width={400}
+            height={400}
+            src="https://cdn.shopify.com/s/files/1/2447/5025/files/DSC08563w_1024x1024.jpg?v=1547829837"
+            alt="Artisan working"
+            class="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+          />
+        </div>
+        {/* Two stacked smaller images */}
+        <div class="grid grid-rows-2 gap-5 md:col-span-4">
+          <div class="overflow-hidden rounded-2xl bg-stone-200">
+            <img
+              decoding="async"
+              loading="lazy"
+              width={400}
+              height={400}
+              src="https://made-in.org/media/pages/craft-techniques/bandhani-and-kalamkari/82a4bf4c47-1644429701/02-bandhani23-640x.jpg"
+              alt="Fabric detail"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div
+            class="bg-primary flex flex-col items-start justify-center rounded-2xl p-8 text-white dark:bg-white/10"
+          >
+            <h3 class="mb-2 font-serif text-3xl">100%</h3>
+            <p>Handcrafted by master artisans.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 3. The Process / Values - Clean 3-Column Layout */}
+    <section class="mx-auto mb-16 max-w-7xl">
+      <ProductGrid class={"grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3"}>
+        <div class="flex flex-col items-start gap-3">
+          <div class="rounded-xl bg-rose-100 p-3">
+            <!-- <Users size={24} /> -->
+          </div>
+          <h3 class="font-serif text-xl">Community First</h3>
+          <p>
+            We work directly with families in rural Kachchh, ensuring fair wages
+            and sustaining the livelihood of our artisan partners.
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-3">
+          <div class="rounded-xl bg-rose-100 p-3">
+            <!-- <Leaf size={24} /> -->
+          </div>
+          <h3 class="font-serif text-xl">Sustainable Dyes</h3>
+          <p>
+            Our colors are derived from nature indigo, turmeric and madder root
+            keeping our fabrics safe for your skin and the earth.
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-3">
+          <div class="rounded-xl bg-rose-100 p-3">
+            <!-- <Gem size={24} /> -->
+          </div>
+          <h3 class="font-serif text-xl">Heirloom Quality</h3>
+          <p>
+            Bandhani is not fast fashion. It is art intended to be passed down
+            through generations, aging gracefully with every wear.
+          </p>
+        </div>
+      </ProductGrid>
+    </section>
+  </Container>
+  {/* 4. CTA Strip */}
+  <section class="bg-rose-100 px-5 py-20 text-center dark:bg-white/10">
+    <h2 class="mb-6 font-serif text-3xl">Experience the tradition.</h2>
+    <Button href={"/products"}>
+      View Latest Collection
+      <!-- <ArrowRight class="ml-2" size={18} /> -->
+    </Button>
+  </section>
+</Layout>

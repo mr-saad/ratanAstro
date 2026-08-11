@@ -1,0 +1,16 @@
+---
+import sanity from "@/utils/sanity"
+
+const img = await sanity.fetch(
+  `*[_type=="headerImage"][0]{"url":image.asset->url}`,
+)
+---
+
+<img
+  alt={"Hero"}
+  class="absolute -z-1 h-full w-full object-cover select-none"
+  src={`${img.url}?w=1024`}
+  fetchpriority="high"
+  loading="eager"
+  decoding="async"
+/>

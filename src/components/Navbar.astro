@@ -1,0 +1,60 @@
+---
+import AccountLink from "./Navbar/AccountLink.astro"
+import CartLink from "./Navbar/CartLink.astro"
+import Links from "./Navbar/Links.astro"
+import MenuToggler from "./Navbar/MenuToggler.astro"
+import ThemeToggle from "./Navbar/ThemeToggle.astro"
+---
+
+<nav
+  class={`nav fixed inset-x-2 top-2 z-12 grid grid-cols-[1fr_2fr_1fr] items-center justify-between rounded-md bg-stone-100/80 px-5 py-3 select-none md:text-base`}
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="hidden">
+    <defs>
+      <filter id="svgfm-filter">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.05"
+          numOctaves="1"
+          result="turb"></feTurbulence>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blurred"
+        ></feGaussianBlur>
+        <feDisplacementMap
+          in="blurred"
+          in2="turb"
+          scale="20"
+          xChannelSelector="R"
+          yChannelSelector="G"></feDisplacementMap>
+      </filter>
+    </defs>
+  </svg>
+  <MenuToggler />
+  <a
+    aria-label="Home"
+    title="Ratan Bandhej"
+    href="/"
+    class={"font-serif tracking-tighter w-max justify-self-center text-3xl  text-stone-950 md:justify-self-start md:text-4xl"}
+  >
+    Ratan Bandhej
+  </a>
+  <ul
+    class={`navLinks col-span-3 row-start-2 hidden grid-flow-row pt-5 md:col-span-1 md:row-start-auto md:mt-0 md:grid md:grid-flow-col md:place-content-center md:border-none md:pt-0`}
+  >
+    <Links />
+    <div class="md:hidden">
+      <!-- <AccountLink /> -->
+    </div>
+    <div class="sm:hidden">
+      <!-- <ThemeToggle /> -->
+    </div>
+  </ul>
+  <div class="flex items-center gap-4 justify-self-end">
+    <div class="hidden md:block">
+      <!-- <ThemeToggle /> -->
+    </div>
+    <!-- <CartLink /> -->
+    <div class="hidden md:block">
+      <!-- <AccountLink /> -->
+    </div>
+  </div>
+</nav>

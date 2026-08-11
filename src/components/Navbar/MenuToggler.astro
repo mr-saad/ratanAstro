@@ -1,0 +1,16 @@
+<button
+  tabindex={0}
+  class={`menuToggler flex h-3 cursor-pointer flex-col justify-between justify-self-start md:hidden`}
+>
+  <span class={`line1 h-0.5 w-6.5 origin-center rounded-md bg-black`}></span>
+  <span class={`line2 h-0.5 w-6.5 origin-center rounded-md bg-black`}></span>
+</button>
+
+<script>
+  const toggler = document.querySelector(".menuToggler"),
+    navLinks = document.querySelector(".navLinks")
+  toggler?.addEventListener("click", (e: Event) => {
+    navLinks?.classList.toggle("hidden")
+    navLinks?.classList.toggle("grid")
+  })
+</script>

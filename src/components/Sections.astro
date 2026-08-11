@@ -1,0 +1,47 @@
+---
+import sanity from "@/utils/sanity"
+import ProductGrid from "./ui/ProductGrid.astro"
+import Product from "./Product.astro"
+import Button from "./ui/Button.astro"
+
+const sections = await sanity.fetch(`{
+    "Dupatta": {
+       "products": *[_type=="product" && type=="Dupatta"][0...4]|order(_createdAt desc){_id,type,title,"slug":slug.current,"image":images[0].asset->url}
+    },
+    "Saree": {
+      "products": *[_type=="product" && type=="Saree"][0...4]|order(_createdAt desc){_id,type,title,"slug":slug.current,"image":images[0].asset->url}
+    },
+    "Dress": {
+      "products": *[_type=="product" && type=="Dress"][0...4]|order(_createdAt desc){_id,type,title,"slug":slug.current,"image":images[0].asset->url}
+    },
+    "Top Material": {
+      "products": *[_type=="product" && type=="Top Material"][0...4]|order(_createdAt desc){_id,type,title,"slug":slug.current,"image":images[0].asset->url}
+    }
+  }`)
+---
+
+{
+  Object.entries(sections).map((section) => {
+    const [category, { products }] = section
+    return (
+      <div class="mb-10">
+        <div class="mb-2 flex items-center justify-between gap-2">
+          <h3 class="heading text-black">{category}</h3>
+          <Button
+            href={"/products/" + category}
+            variant="secondary"
+            title={`View all ${category}`}
+            aria-labelledby={`View all ${category}`}
+          >
+            ↗
+          </Button>
+        </div>
+        <ProductGrid>
+          {products?.map((p, index: number) => {
+            return <Product {...p} index={index} />
+          })}
+        </ProductGrid>
+      </div>
+    )
+  })
+}

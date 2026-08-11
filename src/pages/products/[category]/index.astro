@@ -1,0 +1,38 @@
+---
+import Product from "@/components/Product.astro"
+import Container from "@/components/ui/Container.astro"
+import ProductGrid from "@/components/ui/ProductGrid.astro"
+import Layout from "@/layouts/Layout.astro"
+import sanity from "@/utils/sanity"
+
+const category = Astro.params?.category
+
+export async function getStaticPaths() {
+  const categories = await sanity.fetch(
+    `array::unique(*[_type=="product"].type)`,
+  )
+  return categories.map((category: string) => ({ params: { category } }))
+}
+
+const products = await sanity.fetch(
+  `
+    *[_type=="product" && type==$category]{
+      _id,type,title,"slug":slug.current,"image":images[0].asset->url
+    }
+  `,
+  { category },
+)
+---
+
+<Layout title={category}>
+  <Container isTop>
+    {category}
+    <ProductGrid>
+      {
+        products.map((p) => {
+          return <Product {...p} />
+        })
+      }
+    </ProductGrid>
+  </Container>
+</Layout>
