@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^11.1.2",
+    "@astrojs/vercel": "^11.0.5",
     "@sanity/client": "^7.26.2",
     "astro": "^7.2.0"
   },
