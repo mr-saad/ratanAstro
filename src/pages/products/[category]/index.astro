@@ -3,18 +3,19 @@ import Product from "@/components/Product.astro"
 import Container from "@/components/ui/Container.astro"
 import ProductGrid from "@/components/ui/ProductGrid.astro"
 import Layout from "@/layouts/Layout.astro"
+import type { ProductType } from "@/lib/types"
 import sanity from "@/utils/sanity"
 
 const category = Astro.params?.category
 
 export async function getStaticPaths() {
-  const categories = await sanity.fetch(
+  const categories: string[] = await sanity.fetch(
     `array::unique(*[_type=="product"].type)`,
   )
   return categories.map((category: string) => ({ params: { category } }))
 }
 
-const products = await sanity.fetch(
+const products: ProductType[] = await sanity.fetch(
   `
     *[_type=="product" && type==$category]{
       _id,type,title,"slug":slug.current,"image":images[0].asset->url
@@ -26,7 +27,7 @@ const products = await sanity.fetch(
 
 <Layout title={category}>
   <Container isTop>
-    {category}
+    <h1 class="heading mb-2">{category}</h1>
     <ProductGrid>
       {
         products.map((p) => {

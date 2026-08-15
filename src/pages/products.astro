@@ -1,22 +1,33 @@
 ---
 import Product from "@/components/Product.astro"
+import Filter from "@/components/Filter.astro"
 import Container from "@/components/ui/Container.astro"
 import ProductGrid from "@/components/ui/ProductGrid.astro"
 import Layout from "@/layouts/Layout.astro"
 import sanity from "@/utils/sanity"
+import type { ProductType } from "@/lib/types"
 
-const products = await sanity.fetch(`
-    *[_type=="product"]|order(_createdAt desc){
-    _id,type,title,"slug":slug.current,"image":images[0].asset->url
+type ResType = {
+  categories: string[]
+  products: ProductType[]
+}
+
+const res: ResType = await sanity.fetch(`
+  {
+    "categories": array::unique(*[_type=="product"].type),
+    "products":*[_type=="product"]|order(_createdAt desc){
+      _id,type,title,"slug":slug.current,"image":images[0].asset->url
     }
+  }
   `)
 ---
 
 <Layout title="Products">
   <Container isTop>
-    <ProductGrid>
+    <Filter categories={res?.categories} />
+    <ProductGrid class="products">
       {
-        products.map((p) => {
+        res?.products?.map((p) => {
           return <Product {...p} />
         })
       }

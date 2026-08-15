@@ -1,0 +1,21 @@
+---
+import Button from "./ui/Button.astro"
+
+const { categories } = Astro.props
+---
+
+<div class="my-5 flex flex-wrap gap-2 *:grow">
+	{
+		categories.map((c: string) => {
+			return (
+				<Button
+					hx-get={`/partials/filter-products?category=${c}`}
+					hx-target=".products"
+					variant="secondary"
+				>
+					{c}
+				</Button>
+			)
+		})
+	}
+</div>

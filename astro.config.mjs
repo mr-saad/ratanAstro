@@ -1,12 +1,19 @@
 // @ts-check
-import { defineConfig } from "astro/config"
-
+import { defineConfig, memoryCache } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
+import node from "@astrojs/node"
 import icon from "astro-icon"
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://ratan-astro.vercel.app",
   vite: {
     plugins: [tailwindcss(), icon()],
   },
+  adapter: node({
+    mode: "standalone"
+  }),
+  cache: {
+    provider: memoryCache()
+  }
 })

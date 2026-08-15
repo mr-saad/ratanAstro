@@ -7,6 +7,8 @@ const img = await sanity.fetch(
 ---
 
 <img
+  sizes="100vw"
+  srcset={`${img.url}?w=480 480w, ${img.url}?w=640 640w, ${img.url}?w=1024 1024w`}
   alt={"Hero"}
   class="absolute -z-1 h-full w-full object-cover select-none"
   src={`${img.url}?w=1024`}

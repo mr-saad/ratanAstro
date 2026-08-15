@@ -1,18 +1,16 @@
 ---
-import Product from "@/components/Product.astro"
 import Button from "@/components/ui/Button.astro"
 import Container from "@/components/ui/Container.astro"
-import ProductGrid from "@/components/ui/ProductGrid.astro"
 import Layout from "@/layouts/Layout.astro"
 import sanity from "@/utils/sanity"
 
 const slugProp = Astro.params?.slug
 
 export async function getStaticPaths() {
-  const paths = await sanity.fetch(
+  const paths: [{ slug: string; type: string }] = await sanity.fetch(
     `*[_type=="product"]{"slug":slug.current,type}`,
   )
-  return paths.map((path: any) => ({
+  return paths.map((path) => ({
     params: { category: path.type, slug: path.slug },
   }))
 }
@@ -34,9 +32,9 @@ const product = await sanity.fetch(
       height="400"
       loading="eager"
       fetchpriority="high"
-      src={product.image}
+      src={product.image + "?w=600"}
       alt={product.title}
-      class="rounded-md"
+      class="aspect-square rounded-md object-cover"
     />
     <div>
       <h1 class="heading font-serif">{product.title}</h1>

@@ -1,0 +1,29 @@
+---
+import sanity from "@/utils/sanity.ts"
+import Product from "@/components/Product.astro"
+import type { ProductType } from "@/lib/types"
+
+export const prerender = false
+export const partial = true
+
+const category = Astro.url.searchParams.get("category")
+
+const filtered: ProductType[] = await sanity.fetch(
+	`*[_type=="product" && type==$category]{
+		_id,type,"slug":slug.current,title,"image":images[0].asset->url
+	}
+`,
+	{ category },
+)
+
+Astro.cache.set({
+	maxAge: 3600,
+	swr: 60,
+})
+---
+
+{
+	filtered.map((p) => {
+		return <Product {...p} />
+	})
+}
