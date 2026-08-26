@@ -1,8 +1,8 @@
 // @ts-check
-import { defineConfig, memoryCache } from "astro/config"
+import { defineConfig } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
-import node from "@astrojs/node"
 import vercel from "@astrojs/vercel"
+import { cacheVercel } from "@astrojs/vercel/cache"
 import icon from "astro-icon"
 
 // https://astro.build/config
@@ -13,6 +13,6 @@ export default defineConfig({
   },
   adapter: vercel(),
   cache: {
-    provider: memoryCache()
+    provider: cacheVercel()
   }
 })

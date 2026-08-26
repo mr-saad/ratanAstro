@@ -5,7 +5,7 @@ const sanity = createClient({
   projectId: import.meta.env.projectID,
   apiVersion: import.meta.env.apiVersion,
   token: import.meta.env.sanityToken,
-  useCdn: false,
+  useCdn: true,
 })
 
 export default sanity
