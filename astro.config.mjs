@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config"
+import { defineConfig, fontProviders } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
 import vercel from "@astrojs/vercel"
 import { cacheVercel } from "@astrojs/vercel/cache"
@@ -14,5 +14,12 @@ export default defineConfig({
   adapter: vercel(),
   cache: {
     provider: cacheVercel()
-  }
+  },
+  fonts: [{
+    provider: fontProviders.google(),
+    name: "DM Sans",
+    cssVariable: "--font-dm-sans",
+    display: "swap"
+  }],
+  integrations: [icon()]
 })

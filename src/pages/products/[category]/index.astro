@@ -1,4 +1,5 @@
 ---
+import Filter from "@/components/Filter.astro"
 import Product from "@/components/Product.astro"
 import Container from "@/components/ui/Container.astro"
 import ProductGrid from "@/components/ui/ProductGrid.astro"
@@ -12,7 +13,10 @@ export async function getStaticPaths() {
   const categories: string[] = await sanity.fetch(
     `array::unique(*[_type=="product"].type)`,
   )
-  return categories.map((category: string) => ({ params: { category } }))
+  return categories.map((category: string) => ({
+    params: { category },
+    props: { categories },
+  }))
 }
 
 const products: ProductType[] = await sanity.fetch(
@@ -27,7 +31,7 @@ const products: ProductType[] = await sanity.fetch(
 
 <Layout title={category}>
   <Container isTop>
-    <h1 class="heading mb-2">{category}</h1>
+    <Filter categories={Astro.props.categories} />
     <ProductGrid>
       {
         products.map((p) => {

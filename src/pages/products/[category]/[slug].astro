@@ -40,9 +40,9 @@ const product = await sanity.fetch(
       class="aspect-square rounded-md object-cover [view-transition-name:productImg]"
     />
     <div>
-      <h1 class="heading font-serif">{product.title}</h1>
+      <h1 class="text-xl md:text-2xl text-black font-serif leading-tight tracking-tight">{product.title}</h1>
       <p>{product.description}</p>
-      <Button>Add to Cart</Button>
+      <Button class="mt-3">Add to Cart</Button>
     </div>
   </Container>
 </Layout>

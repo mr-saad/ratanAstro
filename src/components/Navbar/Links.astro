@@ -21,6 +21,7 @@ const links = [
   <a
     class={cn(
       "block pb-2 transition hover:text-rose-700 focus-visible:text-rose-700 md:inline md:px-2 md:py-0",
+      Astro.url.pathname === "/" && "text-rose-700",
     )}
     href={"/"}
   >
@@ -28,16 +29,17 @@ const links = [
   </a>
 </li>
 {
-  links.map((all) => {
+  links.map((link) => {
     return (
       <li class="md:inline">
         <a
           class={cn(
             "block py-2 transition hover:text-rose-700 focus-visible:text-rose-700 md:inline md:px-2 md:py-0",
+            Astro.url.pathname === link.url && "text-rose-700",
           )}
-          href={all.url}
+          href={link.url}
         >
-          {all.text}
+          {link.text}
         </a>
       </li>
     )
